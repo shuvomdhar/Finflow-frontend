@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/* Class-based theme switching (light default, dark opt-in). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-emerald-brand: #059669;
+  --color-forest: #0b6b45;
+  --color-forest-deep: #075236;
+  --color-indigo-brand: #4f46e5;
+  --color-sky-brand: #0ea5e9;
+  --color-navy: #0f172a;
+  --color-focus: #0f172a;
+
+  --color-canvas: #f4f4fb;
+  --color-surface: #ffffff;
+  --color-ink: #101828;
+  --color-muted: #667085;
+  --color-line: #e7e8f2;
+  --color-lav: #f1f2fa;
+  --color-lav-deep: #e9ebf7;
+  --color-mint: #e7f5ee;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04),
+    0 10px 24px -18px rgba(16, 24, 40, 0.16);
+  --shadow-float: 0 24px 60px -24px rgba(16, 24, 40, 0.28);
+  --shadow-pop: 0 18px 44px -18px rgba(16, 24, 40, 0.24);
+}
+
+:root {
+  color-scheme: light;
+}
+
+/* Dark ledger theme: token overrides keep every semantic utility in sync. */
+.dark {
+  color-scheme: dark;
+
+  --color-emerald-brand: #34d399;
+  --color-forest: #10b981;
+  --color-forest-deep: #059669;
+  --color-indigo-brand: #818cf8;
+  --color-sky-brand: #38bdf8;
+  --color-focus: #c7d2fe;
+
+  --color-canvas: #070c16;
+  --color-surface: #0f172a;
+  --color-ink: #e8edf9;
+  --color-muted: #94a3b8;
+  --color-line: #1e2a41;
+  --color-lav: #141d30;
+  --color-lav-deep: #1b2740;
+  --color-mint: #0d2a20;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 16px 34px -24px rgba(0, 0, 0, 0.75);
+  --shadow-float: 0 24px 60px -24px rgba(0, 0, 0, 0.85);
+  --shadow-pop: 0 18px 44px -18px rgba(0, 0, 0, 0.8);
+}
+
+/* --- Dark fixes for the few literal palette utilities --- */
+.dark .text-navy {
+  color: var(--color-ink);
+}
+.dark .hover\:text-navy:hover {
+  color: #ffffff;
+}
+.dark .bg-white {
+  background-color: var(--color-surface);
+}
+.dark .bg-white\/95 {
+  background-color: rgba(15, 23, 42, 0.95);
+}
+.dark .bg-white\/80,
+.dark .bg-white\/70 {
+  background-color: rgba(15, 23, 42, 0.8);
+}
+.dark .hover\:bg-white:hover {
+  background-color: var(--color-lav-deep);
+}
+.dark .focus\:bg-white:focus {
+  background-color: var(--color-lav-deep);
+}
+.dark .field-lav:focus-within,
+.dark .field-lav:focus {
+  background-color: #1b2740;
+}
+.dark .bg-slate-50 {
+  background-color: #121b2d;
+}
+.dark .bg-slate-50\/60 {
+  background-color: rgba(18, 27, 45, 0.6);
+}
+.dark .bg-slate-50\/70 {
+  background-color: rgba(18, 27, 45, 0.7);
+}
+.dark .bg-slate-100 {
+  background-color: #1a2438;
+}
+.dark .bg-slate-200\/70 {
+  background-color: #22304a;
+}
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover {
+  background-color: #1a2438;
+}
+.dark .border-slate-300 {
+  border-color: #2c3c58;
+}
+.dark .text-slate-600 {
+  color: #c3cee0;
+}
+.dark .text-slate-500 {
+  color: #a9b7cd;
+}
+.dark .bg-emerald-50 {
+  background-color: #0d2a20;
+}
+.dark .bg-indigo-50 {
+  background-color: #1b1f3a;
+}
+.dark .bg-sky-50 {
+  background-color: #0c2740;
+}
+.dark .bg-rose-50 {
+  background-color: #2a1319;
+}
+.dark .bg-amber-50 {
+  background-color: #2a2112;
+}
+.dark .border-emerald-200 {
+  border-color: #145239;
+}
+.dark .border-rose-200 {
+  border-color: #4c1d2a;
+}
+.dark .border-amber-200 {
+  border-color: #4a3a12;
+}
+.dark .text-rose-600,
+.dark .text-rose-700 {
+  color: #fda4af;
+}
+.dark .text-amber-700,
+.dark .text-amber-800 {
+  color: #fcd34d;
+}
+.dark .text-emerald-800,
+.dark .text-emerald-900\/80 {
+  color: #6ee7b7;
+}
+.dark .bg-forest {
+  background-color: #047857;
+}
+.dark .hover\:bg-forest-deep:hover {
+  background-color: #065f46;
+}
+.dark .bg-forest.shadow-sm {
+  box-shadow: 0 8px 20px -12px rgba(16, 185, 129, 0.55);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    background: rgba(5, 150, 105, 0.18);
+  }
+}
+
+/* Active segment inside the small tab groups (dashboard, quick entry). */
+.seg-active {
+  background-color: #ffffff;
+  color: var(--color-navy);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+}
+.dark .seg-active {
+  background-color: #047857;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* Small uppercase label used across the ledger cards. */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+@keyframes finflow-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: finflow-rise 0.4s ease-out both;
+}
+
+@keyframes finflow-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: finflow-float 6s ease-in-out infinite;
+}
+
+.dotted-grid {
+  background-image: radial-gradient(
+    rgba(148, 163, 184, 0.35) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+.hero-glow {
+  background:
+    radial-gradient(60% 60% at 15% 20%, rgba(5, 150, 105, 0.16), transparent 70%),
+    radial-gradient(55% 55% at 85% 10%, rgba(79, 70, 229, 0.14), transparent 70%),
+    radial-gradient(45% 45% at 70% 85%, rgba(14, 165, 233, 0.14), transparent 70%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Soft lavender field used by the top bar and ledger filters. */
+.field-lav {
+  background-color: var(--color-lav);
+  border: 1px solid transparent;
+}
+.field-lav:hover {
+  background-color: var(--color-lav-deep);
+}
+.field-lav:focus-within,
+.field-lav:focus {
+  border-color: rgba(5, 150, 105, 0.4);
+  background-color: #ffffff;
+}
