@@ -75,8 +75,9 @@ export function isSupportedCurrency(code: string): boolean {
   return CURRENCY_CODES.has(code);
 }
 
-export function roundMoney(value: number): number {
-  return Math.round(value * 100) / 100;
+export function roundMoney(value: number, decimals = 2): number {
+  const factor = 10 ** decimals;
+  return Math.round(value * factor) / factor;
 }
 
 function amountFormatter(): Intl.NumberFormat {
@@ -247,7 +248,9 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   );
 
   const toUsd = useCallback(
-    (value: number) => roundMoney(value / rate),
+    // Keep the USD value at storage precision (8 dp). Rounding to cents here is
+    // what made an entered amount come back a few paisa higher.
+    (value: number) => roundMoney(value / rate, 8),
     [rate],
   );
 
