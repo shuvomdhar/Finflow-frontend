@@ -19,10 +19,14 @@ export async function forgotPasswordAction(
   }
 
   const headerList = await headers();
+  const host =
+    headerList.get("x-forwarded-host") ?? headerList.get("host") ?? null;
+  const proto = headerList.get("x-forwarded-proto") ?? "http";
+  const configured = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/+$/, "");
+  // On Vercel the request host is the real deployment domain, so this keeps
+  // the reset link on the deployed site without another env variable.
   const origin =
-    process.env.NEXT_PUBLIC_APP_URL ??
-    headerList.get("origin") ??
-    "http://localhost:3000";
+    configured ?? (host ? `${proto}://${host}` : "http://localhost:3000");
 
   const { error } = await auth.requestPasswordReset({
     email,
